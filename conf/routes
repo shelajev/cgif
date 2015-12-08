@@ -4,6 +4,8 @@
 
 # Home page
 GET        /                    controllers.Application.index()
+GET        /gif/:key            controllers.Application.gif(key: String)
+
 #GET        /:id                 controllers.Application.gif(id: String, color: String = "white", size: Int = 400)
 #GET        /:id/:color/:size    controllers.Application.gif(id: String, color: String, size: Int)
 

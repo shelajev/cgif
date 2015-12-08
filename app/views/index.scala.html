@@ -5,10 +5,17 @@
 @colors = @{ Seq("white"->"white","black"->"black") }
 
 @main("Welcome") {
-    @b3.form(routes.Application.pgn) {
-        @b3.textarea( fooForm("pgn"), '_label -> "PGN", 'rows -> 10)
-        @b3.select( fooForm("color"), options = colors, '_label -> "Color" )
-        @b3.number( fooForm("size"), '_label -> "Size", 'min -> 240, 'max -> 400, 'step -> 16, 'value -> 320)
-        @b3.submit('class -> "btn btn-primary"){ <span class="glyphicon glyphicon-ok"></span> Create gif }
-    }
+    <div style="text-align: center;">
+        <h1>Create a mind-blowing gifs of the chess games</h1>
+        <img src="@routes.Assets.versioned("images/sample-pgn.gif")" width="160"/>
+    </div>
+        @b3.form(routes.Application.pgn) {
+            @b3.textarea( fooForm("pgn"), '_label -> "PGN", 'rows -> 10, 'placeholder -> "PGN here please...")
+            @b3.select( fooForm("color"), options = colors, '_label -> "Color" )
+            <!-- @b3.number( fooForm("size"), '_label -> "Size", 'min -> 240, 'max -> 400, 'step -> 16, 'value -> 320) -->
+            <div style="text-align: center;">
+                @b3.submit('class -> "btn btn-primary"){ <span class="glyphicon glyphicon-ok"></span> Create gif }
+            </div>
+        }
+
 }

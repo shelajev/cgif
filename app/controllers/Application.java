@@ -4,6 +4,7 @@ import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.pattern.Patterns;
 import chesspresso.Chess;
+import com.google.common.hash.Hashing;
 import model.Input;
 import play.cache.Cache;
 import play.cache.Cached;
@@ -38,20 +39,33 @@ public class Application extends Controller {
     return ok(index.render(form));
   }
 
+  public F.Promise<Result> gif(String key) {
+    F.Promise<Result> result = (F.Promise<Result>) Cache.get(key);
+    if (result != null) {
+      return result;
+    }
+
+    return promise(() -> notFound());
+  }
+
   public F.Promise<Result> pgn() {
     DynamicForm requestData = Form.form().bindFromRequest();
     String pgn = requestData.get("pgn");
     String color = requestData.get("color");
-    int size = Integer.valueOf(requestData.get("size"));
+    String sizeParam = requestData.get("size");
+    int size = sizeParam != null ? Integer.valueOf(sizeParam) : 320;
     int plyStart = 0; //Integer.valueOf(requestData.get("plyStart"));
     int plyEnd = Integer.MAX_VALUE; //Integer.valueOf(requestData.get("plyEnd"));
 
-    String key = pgn + "-" + color + "-" + size + "-" + plyStart + "-" + plyEnd;
-    return Cache.getOrElse(key, new Callable<F.Promise<Result>>() {
+    String key = Hashing.murmur3_32().hashUnencodedChars(pgn + "-" + color + "-" + size + "-" + plyStart + "-" + plyEnd).toString();
+
+    F.Promise<Result> result = Cache.getOrElse(key, new Callable<F.Promise<Result>>() {
       @Override public F.Promise<Result> call() throws Exception {
         return promise(() -> {
           return ok(ChessUtils.gif(pgn, color, size, plyStart, plyEnd)).as("image/gif");
         });
-    }}, 0);
+      }
+    }, 0);
+    return result.flatMap((r) -> gif(key));
   }
 }
