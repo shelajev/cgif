@@ -1,0 +1,64 @@
+New log file opened at Mon Oct 19 01:14:15 EEST 2015 by 9706@shrimp.lan
+Taking next connection to: 59817
+New client attempting to connect on port: 59818-59817
+  Address = /192.168.1.221:59817
+This client on port 59818 has uuid f5d2a9e7-c2c3-499f-bd77-6c30aa35589b configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
+Connected Clients: activator-f5d2a9e7-c2c3-499f-bd77-6c30aa35589b
+Taking next connection to: 59817
+New client attempting to connect on port: 59819-59817
+  Address = /192.168.1.221:59817
+Handshake exception on socket: 59819
+sbt.impl.ipc.HandshakeException: Unable to perform handshake
+	at sbt.impl.ipc.Peer.handshake(IPC.scala:46)
+	at sbt.impl.ipc.MultiClientServer.<init>(IPC.scala:150)
+	at sbt.server.SbtServerSocketHandler$$anon$1.run(SbtServerSocketHandler.scala:43)
+Caused by: java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:392)
+	at sbt.impl.ipc.Peer.receive(IPC.scala:95)
+	at sbt.impl.ipc.Peer.handshake(IPC.scala:49)
+	... 2 more
+Taking next connection to: 59817
+New client attempting to connect on port: 59820-59817
+  Address = /192.168.1.221:59817
+This client on port 59820 has uuid bf15952f-e896-4156-b09a-3747c5e174e6 configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
+Connected Clients: activator-f5d2a9e7-c2c3-499f-bd77-6c30aa35589b, activator-bf15952f-e896-4156-b09a-3747c5e174e6
+Taking next connection to: 59817
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 59817
+New client attempting to connect on port: 59830-59817
+  Address = /192.168.1.221:59817
+Handshake exception on socket: 59830
+sbt.impl.ipc.HandshakeException: Unable to perform handshake
+	at sbt.impl.ipc.Peer.handshake(IPC.scala:46)
+	at sbt.impl.ipc.MultiClientServer.<init>(IPC.scala:150)
+	at sbt.server.SbtServerSocketHandler$$anon$1.run(SbtServerSocketHandler.scala:43)
+Caused by: java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:392)
+	at sbt.impl.ipc.Peer.receive(IPC.scala:95)
+	at sbt.impl.ipc.Peer.handshake(IPC.scala:49)
+	... 2 more
+Taking next connection to: 59817
+New client attempting to connect on port: 59831-59817
+  Address = /192.168.1.221:59817
+This client on port 59831 has uuid 746f6815-f175-45ed-836d-8e0992906fa4 configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
+Connected Clients: activator-bf15952f-e896-4156-b09a-3747c5e174e6, play-fork-run-746f6815-f175-45ed-836d-8e0992906fa4
+Taking next connection to: 59817
+New client attempting to connect on port: 59844-59817
+  Address = /192.168.1.221:59817
+Handshake exception on socket: 59844
+sbt.impl.ipc.HandshakeException: Unable to perform handshake
+	at sbt.impl.ipc.Peer.handshake(IPC.scala:46)
+	at sbt.impl.ipc.MultiClientServer.<init>(IPC.scala:150)
+	at sbt.server.SbtServerSocketHandler$$anon$1.run(SbtServerSocketHandler.scala:43)
+Caused by: java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:392)
+	at sbt.impl.ipc.Peer.receive(IPC.scala:95)
+	at sbt.impl.ipc.Peer.handshake(IPC.scala:49)
+	... 2 more
+Taking next connection to: 59817
+New client attempting to connect on port: 59845-59817
+  Address = /192.168.1.221:59817
+This client on port 59845 has uuid 1768aeb3-5ad3-40dd-ba55-5440b71780ee configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
+Connected Clients: activator-bf15952f-e896-4156-b09a-3747c5e174e6, play-fork-run-1768aeb3-5ad3-40dd-ba55-5440b71780ee
+Taking next connection to: 59817

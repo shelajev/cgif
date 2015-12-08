@@ -1,0 +1,13 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET        /                    controllers.Application.index()
+#GET        /:id                 controllers.Application.gif(id: String, color: String = "white", size: Int = 400)
+#GET        /:id/:color/:size    controllers.Application.gif(id: String, color: String, size: Int)
+
+POST       /pgn                 controllers.Application.pgn()
+
+# Map static resources from the /public folder to the /assets URL path
+GET        /assets/*file        controllers.Assets.versioned(path="/public", file: Asset)

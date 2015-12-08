@@ -1,0 +1,32 @@
+@(title: String, styles: Html = Html(""), scripts: Html = Html(""), modals: Html = Html(""))(content: Html)
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>@title</title>
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("lib/bootstrap/css/bootstrap.min.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("lib/font-awesome/css/font-awesome.min.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+    <link rel="icon" href="@routes.Assets.versioned("images/favicon.ico")">
+    @styles
+    <script src="@routes.Assets.versioned("lib/jquery/jquery.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.versioned("lib/bootstrap/js/bootstrap.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.versioned("javascripts/main.js")" type="text/javascript"></script>
+    @scripts
+</head>
+<body>
+<div class="container">
+    @content
+</div>
+
+<div class="footer">
+    <div class="container">
+        <p>Designed and developed by <a href="https://github.com/shelajev" target="_blank">shelajev</a></p>
+        <p>Code licensed under <a href="https://opensource.org/licenses/MIT" target="_blank">MIT</a></p>
+        <p>© 2015 <a href="https://twitter.com/shelajev">shelajev</a></p>
+    </div>
+</div>
+@modals
+</body>
+</html>
