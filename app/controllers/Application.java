@@ -66,6 +66,6 @@ public class Application extends Controller {
         });
       }
     }, 0);
-    return result.flatMap((r) -> gif(key));
+    return result.flatMap((r) -> temporaryRedirect(controllers.routes.Application.gif(key)));
   }
 }
