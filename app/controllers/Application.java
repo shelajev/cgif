@@ -39,6 +39,10 @@ public class Application extends Controller {
     return ok(index.render(form));
   }
 
+  public Result result(String key) {
+    return ok(result.render(key));
+  }
+
   public F.Promise<Result> gif(String key) {
     F.Promise<Result> result = (F.Promise<Result>) Cache.get(key);
     if (result != null) {
@@ -66,6 +70,6 @@ public class Application extends Controller {
         });
       }
     }, 0);
-    return result.flatMap((r) -> temporaryRedirect(controllers.routes.Application.gif(key)));
+    return result.map((r) -> temporaryRedirect(controllers.routes.Application.result(key)));
   }
 }

@@ -5,6 +5,9 @@
 # Home page
 GET        /                    controllers.Application.index()
 GET        /gif/:key            controllers.Application.gif(key: String)
+
+GET        /result/:key            controllers.Application.result(key: String)
+POST       /result/:key            controllers.Application.result(key: String)
 POST       /pgn                 controllers.Application.pgn()
 
 # Map static resources from the /public folder to the /assets URL path
