@@ -1,0 +1,21 @@
+@(key: String)
+
+
+@main("Save & share this gif") {
+
+    <div class="row" style="text-align: center; padding: 10px" >
+        <!-- Twitter -->
+        <!--<a href="http://twitter.com/home?status=" title="Share on Twitter" target="_blank" class="btn btn-twitter"><i class="fa fa-twitter"></i> Twitter</a>-->
+        <!--&lt;!&ndash; Facebook &ndash;&gt;-->
+        <!--<a href="https://www.facebook.com/sharer/sharer.php?u=" title="Share on Facebook" target="_blank" class="btn btn-facebook"><i class="fa fa-facebook"></i> Facebook</a>-->
+        <!--&lt;!&ndash; Google+ &ndash;&gt;-->
+        <!--<a href="https://plus.google.com/share?url=" title="Share on Google+" target="_blank" class="btn btn-googleplus"><i class="fa fa-google-plus"></i> Google+</a>-->
+    </div>
+    <div class="row" style="text-align: center; padding: 10px" >
+        <img class="img-thumbnail" src="@routes.Application.gif(key)" width="320"/>
+    </div>
+    <div class="row" style="text-align: center;">
+        <a href="/" class="btn btn-info" role="button"><span class="glyphicon glyphicon-refresh"></span> Again!</a>
+    </div>
+
+}
