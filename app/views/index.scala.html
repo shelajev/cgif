@@ -5,17 +5,23 @@
 @colors = @{ Seq("white"->"white","black"->"black") }
 
 @main("Create gifs of the chess games") {
-    <div style="text-align: center;">
-        <h1>Create gifs of the chess games</h1>
-        <img src="@routes.Assets.versioned("images/sample-pgn.gif")" width="160"/>
-    </div>
-        @b3.form(routes.Application.pgn) {
-            @b3.textarea( fooForm("pgn"), '_label -> "PGN", 'rows -> 10, 'placeholder -> "PGN here please...")
-            @b3.select( fooForm("color"), options = colors, '_label -> "Board orientation" )
-            <!-- @b3.number( fooForm("size"), '_label -> "Size", 'min -> 240, 'max -> 400, 'step -> 16, 'value -> 320) -->
-            <div style="text-align: center;">
-                @b3.submit('class -> "btn btn-primary"){ <span class="glyphicon glyphicon-ok"></span> Create gif }
-            </div>
-        }
 
+    <div class="row">
+        <div class="col-md-8">
+            <div style="text-align: center;">
+                <h1>Create gifs of the chess games</h1>
+            </div>
+            @b3.form(routes.Application.pgn) {
+                @b3.textarea( fooForm("pgn"), '_label -> "PGN", 'rows -> 10, 'placeholder -> "PGN here please...")
+                @b3.select( fooForm("color"), options = colors, '_label -> "Board orientation" )
+                <!-- @b3.number( fooForm("size"), '_label -> "Size", 'min -> 240, 'max -> 400, 'step -> 16, 'value -> 320) -->
+                <div style="text-align: center;">
+                    @b3.submit('class -> "btn btn-primary"){ <span class="glyphicon glyphicon-ok"></span> Create gif }
+                </div>
+            }
+        </div>
+        <div class="col-md-4">
+            <img class="img-thumbnail" src="@routes.Assets.versioned("images/sample-pgn.gif")" width="320"/>
+        </div>
+    </div>
 }

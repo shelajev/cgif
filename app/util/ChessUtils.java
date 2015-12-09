@@ -29,6 +29,8 @@ import java.util.Optional;
  */
 public class ChessUtils {
 
+  public static final int GIF_FRAME_DELAY_MS = 800;
+
   public static byte[] gif(String pgn, String color, int size, int plyStart, int plyEnd) {
     try {
       pgn = pgn.replaceAll("\\{[^\\}]*\\}", "");
@@ -40,7 +42,7 @@ public class ChessUtils {
 
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       ImageOutputStream ios = new MemoryCacheImageOutputStream(baos);
-      GifWriter gw = new GifWriter(ios, 500, game.getWhite() + " " + game.getResult() + " " + game.getBlack());
+      GifWriter gw = new GifWriter(ios, GIF_FRAME_DELAY_MS, game.getWhite() + " " + game.getResult() + " " + game.getBlack());
 
       if(plyStart == 0) {
         game.gotoStart();

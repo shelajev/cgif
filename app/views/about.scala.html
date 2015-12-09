@@ -1,0 +1,34 @@
+@main("Create gifs of the chess games") {
+    <div>
+        <h1>Important info about the service</h1>
+
+        <p>
+            First of all, the visual assets like the board image and the pieces were taken from the <a href="lichess.org">Lichess.org</a>.
+            They are available from their <a href="https://github.com/ornicar/lila">Github repository</a> under MIT license.
+        </p>
+
+        <div class="alert alert-info" role="alert">
+            <span class="glyphicon glyphicon-heart"></span> Thank you, Lichess!
+        </div>
+
+
+        <p>
+            This service was created because I need a test <a href="https://www.playframework.com/">Play Framework</a> application. So the quality is not really the swiss watch like.
+        </p>
+        <p>
+            It's deployed to <a href="heroku.com">Heroku</a>, because they have out-of-the-box support for Play apps.
+            It's powered by their free dyno, so it has really limited resources and it might fall down any moment.
+            Also, the service doesn't use any persistence options, it all sits in the memory cache (which should be pretty small for the free dyno), so if you share a link to a
+            gif it might not work after that. In fact, it won't work for certain after some time, just like Snapchat, but for other reasons.
+        </p>
+
+        <div class="alert alert-warning" role="alert">
+            <span class="glyphicon glyphicon-alert"></span>
+            <strong> Save those images locally, if you like them.</strong>
+        </div>
+
+        <p>
+            Oh, this also uses <a href="https://getbootstrap.com">Bootstrap</a> to look less hideous, which includes free use of <a href="http://glyphicons.com/">Glyphicons</a>, that otherwise are not.
+        <p>
+    </div>
+}

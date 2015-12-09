@@ -39,7 +39,14 @@ public class Application extends Controller {
     return ok(index.render(form));
   }
 
+  public Result about() {
+    return ok(about.render());
+  }
+
   public Result result(String key) {
+    if(Cache.get(key) == null) {
+      return  notFound();
+    }
     return ok(result.render(key));
   }
 
