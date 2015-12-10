@@ -73,10 +73,6 @@ public class Application extends Controller {
     return promise(() -> notFound());
   }
 
-  public Result gfycat(String name) {
-    return ok(gfycat.render(name));
-  }
-
   public F.Promise<Result> gfyfy(String key) {
     String url = "http://upload.gfycat.com/transcode?fetchUrl=" + routes.Application.gif(key).absoluteURL(request());
 
@@ -87,7 +83,7 @@ public class Application extends Controller {
       JsonNode gfyName = r.asJson().get("gfyName");
       return gfyName.textValue();
     })
-      .map(name -> temporaryRedirect(controllers.routes.Application.gfycat(name)));
+      .map(name -> temporaryRedirect("http://gfycat.com/" + name));
   }
 
   public F.Promise<Result> pgn() {
