@@ -7,7 +7,8 @@ GET        /                    controllers.Application.index()
 GET        /gif/:key            controllers.Application.gif(key: String)
 
 GET        /download/:key       controllers.Application.download(key: String)
-GET        /gfycat/:key         controllers.Application.gfycat(key: String)
+GET        /gfyfy/:key          controllers.Application.gfyfy(key: String)
+GET        /gfycat/:key         controllers.Application.gfycat(name: String)
 
 
 GET        /result/:key         controllers.Application.result(key: String)

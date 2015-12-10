@@ -73,7 +73,11 @@ public class Application extends Controller {
     return promise(() -> notFound());
   }
 
-  public F.Promise<Result> gfycat(String key) {
+  public Result gfycat(String name) {
+    return ok(gfycat.render(name));
+  }
+
+  public F.Promise<Result> gfyfy(String key) {
     String url = "http://upload.gfycat.com/transcode?fetchUrl=" + routes.Application.gif(key).absoluteURL(request());
 
     Logger.debug("Gfycatting a gif: " + url);
@@ -83,7 +87,7 @@ public class Application extends Controller {
       JsonNode gfyName = r.asJson().get("gfyName");
       return gfyName.textValue();
     })
-      .map(name -> ok(gfycat.render(name)));
+      .map(name -> temporaryRedirect(controllers.routes.Application.gfycat(name)));
   }
 
   public F.Promise<Result> pgn() {
