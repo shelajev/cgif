@@ -74,7 +74,7 @@ public class Application extends Controller {
   }
 
   public F.Promise<Result> gfycat(String key) {
-    String url = "http://upload.gfycat.com/transcode?fetchUrl=" + routes.Application.gif(key).url();
+    String url = "http://upload.gfycat.com/transcode?fetchUrl=" + routes.Application.gif(key).absoluteURL(request());
 
     Logger.debug("Gfycatting a gif: " + url);
     F.Promise<WSResponse> responsePromise = WS.url(url).get();
