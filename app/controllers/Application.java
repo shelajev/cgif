@@ -51,9 +51,20 @@ public class Application extends Controller {
   }
 
   public F.Promise<Result> gif(String key) {
-    F.Promise<Result> result = (F.Promise<Result>) Cache.get(key);
+    F.Promise<byte[]> result = (F.Promise<byte[]>) Cache.get(key);
     if (result != null) {
-      return result;
+      return result.map(r -> ok(r).as("image/gif"));
+    }
+
+    return promise(() -> notFound());
+  }
+
+  public F.Promise<Result> download(String key) {
+    F.Promise<byte[]> result = (F.Promise<byte[]>) Cache.get(key);
+    if (result != null) {
+      response().setHeader("Content-Disposition", "attachement");
+      response().setHeader("filename", "chess-gif.gif");
+      return result.map(r ->  ok(r).as("image/gif"));
     }
 
     return promise(() -> notFound());
@@ -70,11 +81,9 @@ public class Application extends Controller {
 
     String key = Hashing.murmur3_32().hashUnencodedChars(pgn + "-" + color + "-" + size + "-" + plyStart + "-" + plyEnd).toString();
 
-    F.Promise<Result> result = Cache.getOrElse(key, new Callable<F.Promise<Result>>() {
-      @Override public F.Promise<Result> call() throws Exception {
-        return promise(() -> {
-          return ok(ChessUtils.gif(pgn, color, size, plyStart, plyEnd)).as("image/gif");
-        });
+    F.Promise<byte[]> result = Cache.getOrElse(key, new Callable<F.Promise<byte[]>>() {
+      @Override public F.Promise<byte[]> call() throws Exception {
+        return promise(() -> ChessUtils.gif(pgn, color, size, plyStart, plyEnd));
       }
     }, 0);
     return result.map((r) -> temporaryRedirect(controllers.routes.Application.result(key)));

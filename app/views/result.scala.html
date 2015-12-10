@@ -1,12 +1,18 @@
 @(key: String)
 
 
-@main("Save & share this gif") {
+@main("Here's your chess gif") {
     <div class="row" style="text-align: center; padding: 10px" >
         <img class="img-thumbnail" src="@routes.Application.gif(key)" width="320"/>
     </div>
+
+    <div class="row" style="text-align: center;">
+        <p>This image is not stored on the server for long, better save it.</p>
+    </div>
+
     <div class="row" style="text-align: center;">
         <a href="/" class="btn btn-info" role="button"><span class="glyphicon glyphicon-repeat"></span> Again!</a>
+        <a href="/download/@key" target="_blank" class="btn btn-success" role="button"><span class="glyphicon glyphicon-download"></span> Save me!</a>
     </div>
 
 }
