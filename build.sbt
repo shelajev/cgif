@@ -6,6 +6,8 @@ lazy val root = (project in file(".")).enablePlugins(PlayJava)
 
 scalaVersion := "2.11.6"
 
+//herokuAppName in Compile := "hidden-spire-5644"
+
 resolvers += "jitpack" at "https://jitpack.io"
 
 libraryDependencies ++= Seq(
@@ -16,7 +18,10 @@ libraryDependencies ++= Seq(
   "com.kitfox.svg" % "svg-salamander" % "1.0",
   "com.adrianhurt" % "play-bootstrap3_2.11" % "0.4.4-P24",
   "org.webjars" % "font-awesome" % "4.4.0",
-  "com.kenshoo" %% "metrics-play" % "2.4.0_0.4.1"
+  "io.dropwizard.metrics" % "metrics-core" % "3.1.0",
+  "io.dropwizard.metrics" % "metrics-jvm" % "3.1.0",
+  "io.dropwizard.metrics" % "metrics-logback" % "3.1.0",
+  "io.dropwizard.metrics" % "metrics-graphite" % "3.1.0"
 )
 
 // Play provides two styles of routers, one expects its actions to be injected, the
