@@ -4,6 +4,7 @@ import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.pattern.Patterns;
 import chesspresso.Chess;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.hash.Hashing;
 import model.Input;
 import play.cache.Cache;
@@ -73,8 +74,15 @@ public class Application extends Controller {
   }
 
   public F.Promise<Result> gfycat(String key) {
-    F.Promise<WSResponse> responsePromise = WS.url("http://upload.gfycat.com/transcode?fetchUrl=" + controllers.routes.Application.gif(key).url()).get();
-    return responsePromise.map(r -> r.asJson().get("gfyName").textValue())
+    String url = "http://upload.gfycat.com/transcode?fetchUrl=" + routes.Application.gif(key).url();
+
+    Logger.debug("Gfycatting a gif: " + url);
+    F.Promise<WSResponse> responsePromise = WS.url(url).get();
+    return responsePromise.map(r -> {
+      Logger.debug("Gfycatting a gif: response = " + r.getBody());
+      JsonNode gfyName = r.asJson().get("gfyName");
+      return gfyName.textValue();
+    })
       .map(name -> ok(gfycat.render(name)));
   }
 
