@@ -8,10 +8,7 @@ import com.codahale.metrics.jvm.MemoryUsageGaugeSet;
 import com.codahale.metrics.jvm.ThreadStatesGaugeSet;
 import com.codahale.metrics.logback.InstrumentedAppender;
 import filters.MetricsFilter;
-import play.Application;
-import play.Configuration;
-import play.GlobalSettings;
-import play.Logger;
+import play.*;
 import play.api.mvc.EssentialFilter;
 import util.SVGUtil;
 
@@ -31,8 +28,10 @@ public class Global extends GlobalSettings {
   @Override
   public void onStart(Application app) {
     super.onStart(app);
-    setupMetrics(app.configuration());
-    setupGraphiteReporter(app.configuration());
+    if(Play.isProd()) {
+      setupMetrics(app.configuration());
+      setupGraphiteReporter(app.configuration());
+    }
     try {
       SVGUtil.init();
     }

@@ -1,0 +1,24 @@
+@(name: String)
+
+@main("Gfycat of your game") {
+    <script>
+            (function(d, t) {
+                var g = d.createElement(t),
+                        s = d.getElementsByTagName(t)[0];
+                g.src = 'http://assets.gfycat.com/js/gfyajax-0.517d.js';
+                s.parentNode.insertBefore(g, s);
+            }(document, 'script'));
+    </script>
+
+    <div class="row" style="text-align: center; padding: 10px" >
+        <img class="gfyitem" data-id="@name" />
+    </div>
+
+    <div class="row" style="text-align: center;">
+        <a href="/" class="btn btn-info" role="button"><span class="glyphicon glyphicon-repeat"></span> Again!</a>
+    </div>
+
+
+
+
+}

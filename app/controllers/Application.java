@@ -11,6 +11,8 @@ import play.cache.Cached;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.libs.Akka;
+import play.libs.ws.WS;
+import play.libs.ws.WSResponse;
 import util.ChessUtils;
 import util.GifWriter;
 import util.Lichess;
@@ -44,8 +46,8 @@ public class Application extends Controller {
   }
 
   public Result result(String key) {
-    if(Cache.get(key) == null) {
-      return  notFound();
+    if (Cache.get(key) == null) {
+      return notFound();
     }
     return ok(result.render(key));
   }
@@ -64,10 +66,16 @@ public class Application extends Controller {
     if (result != null) {
       response().setHeader("Content-Disposition", "attachement");
       response().setHeader("filename", "chess-gif.gif");
-      return result.map(r ->  ok(r).as("image/gif"));
+      return result.map(r -> ok(r).as("image/gif"));
     }
 
     return promise(() -> notFound());
+  }
+
+  public F.Promise<Result> gfycat(String key) {
+    F.Promise<WSResponse> responsePromise = WS.url("http://upload.gfycat.com/transcode?fetchUrl=" + controllers.routes.Application.gif(key).url()).get();
+    return responsePromise.map(r -> r.asJson().get("gfyName").textValue())
+      .map(name -> ok(gfycat.render(name)));
   }
 
   public F.Promise<Result> pgn() {
@@ -86,6 +94,7 @@ public class Application extends Controller {
         return promise(() -> ChessUtils.gif(pgn, color, size, plyStart, plyEnd));
       }
     }, 0);
+
     return result.map((r) -> temporaryRedirect(controllers.routes.Application.result(key)));
   }
 }
