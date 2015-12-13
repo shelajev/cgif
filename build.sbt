@@ -6,8 +6,6 @@ lazy val root = (project in file(".")).enablePlugins(PlayJava)
 
 scalaVersion := "2.11.6"
 
-//herokuAppName in Compile := "hidden-spire-5644"
-
 resolvers += "jitpack" at "https://jitpack.io"
 
 libraryDependencies ++= Seq(
