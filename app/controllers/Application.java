@@ -1,37 +1,21 @@
 package controllers;
 
-import akka.actor.ActorRef;
-import akka.actor.Props;
-import akka.pattern.Patterns;
-import chesspresso.Chess;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.hash.Hashing;
-import model.Input;
 import play.cache.Cache;
-import play.cache.Cached;
 import play.data.DynamicForm;
 import play.data.Form;
-import play.libs.Akka;
+import play.libs.F;
 import play.libs.ws.WS;
 import play.libs.ws.WSResponse;
+import play.mvc.Controller;
+import play.mvc.Result;
 import util.ChessUtils;
-import util.GifWriter;
-import util.Lichess;
-import play.libs.F;
-import play.mvc.*;
+import views.html.about;
+import views.html.index;
+import views.html.result;
 
-import views.html.*;
-
-import java.awt.image.BufferedImage;
-import java.util.Collection;
-import java.util.Optional;
 import java.util.concurrent.Callable;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
-
-import play.Logger;
-
-import util.*;
 
 import static play.libs.F.Promise.promise;
 

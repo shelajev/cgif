@@ -1,7 +1,7 @@
 package util;
 
-import chesspresso.*;
-import chesspresso.position.*;
+import chesspresso.Chess;
+import chesspresso.position.AbstractMutablePosition;
 import com.kitfox.svg.app.beans.SVGIcon;
 import play.api.Play;
 
@@ -15,7 +15,7 @@ import java.io.IOException;
  *
  *
  * This class is adapted from the chesspresso's PositionView that used ascii to represent the pieces.
- * The logic is the same, I just made it draw the icons on top of the background. 
+ * The logic is the same, I just made it draw the icons on top of the background.
  *
  *
  * @author  Bernhard Seybold
