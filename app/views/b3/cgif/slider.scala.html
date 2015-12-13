@@ -1,0 +1,26 @@
+@(field: Field, args: (Symbol, Any)*)(implicit handler: b3.B3FieldConstructor)
+
+@import b3.inputFormGroup
+@import b3.Args.withDefault
+
+
+@defining({
+    val argsMap = args.toMap
+    val min = argsMap.get('min).getOrElse("0").toString
+    val max = argsMap.get('max).getOrElse("16").toString
+    val step = argsMap.get('step).getOrElse("1").toString
+    (argsMap, min, max, step)
+}) { case (argsMap, min, max, step) =>
+    @inputFormGroup(field, withFeedback = false, withLabelFor = true, args) { fieldInfo =>
+        <div class="input-number input-group" >
+            <input id="@fieldInfo.id" data-slider-id='@fieldInfo.id-Slider' type="text" data-slider-min="@min" data-slider-max="@max" data-slider-step="@step" data-slider-value="@fieldInfo.value" name="@fieldInfo.name" @toHtmlArgs(fieldInfo.innerArgsMap)/>
+        </div>
+
+        <script>
+                $(document).ready(function() {
+                    // yeah we expect JQuery here
+                    $('#@fieldInfo.id').slider();
+                });
+        </script>
+    }(handler, new play.api.i18n.Messages(messages.lang(), messages.messagesApi().scalaApi()))
+}

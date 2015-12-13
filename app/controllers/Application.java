@@ -75,11 +75,8 @@ public class Application extends Controller {
 
   public F.Promise<Result> gfyfy(String key) {
     String url = "http://upload.gfycat.com/transcode?fetchUrl=" + routes.Application.gif(key).absoluteURL(request());
-
-    Logger.debug("Gfycatting a gif: " + url);
     F.Promise<WSResponse> responsePromise = WS.url(url).get();
     return responsePromise.map(r -> {
-      Logger.debug("Gfycatting a gif: response = " + r.getBody());
       JsonNode gfyName = r.asJson().get("gfyName");
       return gfyName.textValue();
     })
@@ -90,16 +87,18 @@ public class Application extends Controller {
     DynamicForm requestData = Form.form().bindFromRequest();
     String pgn = requestData.get("pgn");
     String color = requestData.get("color");
-    String sizeParam = requestData.get("size");
-    int size = sizeParam != null ? Integer.valueOf(sizeParam) : 320;
-    int plyStart = 0; //Integer.valueOf(requestData.get("plyStart"));
-    int plyEnd = Integer.MAX_VALUE; //Integer.valueOf(requestData.get("plyEnd"));
 
-    String key = Hashing.murmur3_32().hashUnencodedChars(pgn + "-" + color + "-" + size + "-" + plyStart + "-" + plyEnd).toString();
+    String sizeParam = requestData.get("size");
+    int size = sizeParam != null ? Integer.valueOf(sizeParam) : 400;
+
+    int moveDelay = requestData.get("delay") == null ? 800 : (int) (Float.parseFloat(requestData.get("delay")) * 1000);
+    int lastDelay = requestData.get("lastDelay") == null ? 800 : (int) (Float.parseFloat(requestData.get("lastDelay")) * 1000);
+
+    String key = Hashing.murmur3_32().hashUnencodedChars(pgn + "-" + color + "-" + size + "-" + moveDelay + "-" + lastDelay).toString();
 
     F.Promise<byte[]> result = Cache.getOrElse(key, new Callable<F.Promise<byte[]>>() {
       @Override public F.Promise<byte[]> call() throws Exception {
-        return promise(() -> ChessUtils.gif(pgn, color, size, plyStart, plyEnd));
+        return promise(() -> ChessUtils.gif(pgn, color, size, moveDelay, lastDelay));
       }
     }, 0);
 

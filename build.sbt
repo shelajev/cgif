@@ -21,7 +21,8 @@ libraryDependencies ++= Seq(
   "io.dropwizard.metrics" % "metrics-core" % "3.1.0",
   "io.dropwizard.metrics" % "metrics-jvm" % "3.1.0",
   "io.dropwizard.metrics" % "metrics-logback" % "3.1.0",
-  "io.dropwizard.metrics" % "metrics-graphite" % "3.1.0"
+  "io.dropwizard.metrics" % "metrics-graphite" % "3.1.0",
+  "org.webjars" % "bootstrap-slider" % "5.3.1"
 )
 
 // Play provides two styles of routers, one expects its actions to be injected, the

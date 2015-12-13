@@ -1,4 +1,4 @@
-@(fooForm: Form[Dynamic])
+@(form: Form[Dynamic])
 
 @import b3.vertical.fieldConstructor
 
@@ -12,9 +12,13 @@
                 <h1>Create gifs of the chess games</h1>
             </div>
             @b3.form(routes.Application.pgn) {
-                @b3.textarea( fooForm("pgn"), '_label -> "PGN", 'rows -> 10, 'placeholder -> "PGN here please...")
-                @b3.select( fooForm("color"), options = colors, '_label -> "Board orientation" )
-                <!-- @b3.number( fooForm("size"), '_label -> "Size", 'min -> 240, 'max -> 400, 'step -> 16, 'value -> 320) -->
+                @b3.textarea( form("pgn"), '_label -> "PGN", 'rows -> 10, 'placeholder -> "PGN here please...")
+                @b3.select( form("color"), options = colors, '_label -> "Board orientation" )
+
+                @b3.cgif.slider( form("delay"), '_label -> "Move delay (seconds)", 'min -> 0.5, 'max -> 5, 'step -> 0.1, 'value -> 1)
+                @b3.cgif.slider( form("lastDelay"), '_label -> "Hold last position (seconds)", 'min -> 1, 'max -> 10, 'step -> 1, 'value -> 3)
+
+                <!-- @b3.number( form("size"), '_label -> "Board size (px)", 'min -> 240, 'max -> 400, 'step -> 16, 'value -> 320) -->
                 <div style="text-align: center;">
                     @b3.submit('class -> "btn btn-primary"){ <span class="glyphicon glyphicon-ok"></span> Create gif }
                 </div>
