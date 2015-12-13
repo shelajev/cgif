@@ -9,11 +9,14 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
 
-//import javax.swing.*;
-
 
 /**
  * Position view.
+ *
+ *
+ * This class is adapted from the chesspresso's PositionView that used ascii to represent the pieces.
+ * The logic is the same, I just made it draw the icons on top of the background. 
+ *
  *
  * @author  Bernhard Seybold
  * @version $Revision: 1.2 $

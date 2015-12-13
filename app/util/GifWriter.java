@@ -11,23 +11,26 @@ package util;
 // Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
 
 
-import play.Logger;
-
 import javax.imageio.*;
-import javax.imageio.metadata.*;
+import javax.imageio.metadata.IIOMetadata;
+import javax.imageio.metadata.IIOMetadataNode;
 import javax.imageio.stream.ImageOutputStream;
 import javax.imageio.stream.MemoryCacheImageOutputStream;
-import java.awt.image.*;
-import java.io.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.Optional;
 
+/**
+ * I've adapted this class just a bit, string values, API more to my taste, etc.
+ *
+ * The original creator is Elliot Kroo as mentioned above.
+ */
 public class GifWriter implements AutoCloseable {
 
   public static byte[] gifify(Collection<BufferedImage> imgs) {
     try {
-      Logger.info("Got " + imgs.size() + " images from the game!");
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       ImageOutputStream ios = new MemoryCacheImageOutputStream(baos);
       GifWriter gw = new GifWriter(ios, 500, "hello world");
@@ -54,7 +57,7 @@ public class GifWriter implements AutoCloseable {
     int imageType,
     int timeBetweenFramesMS,
     boolean loopContinuously, String comment) throws IIOException, IOException {
-    // my method to create a writer
+
     gifWriter = getWriter();
     imageWriteParam = gifWriter.getDefaultWriteParam();
     ImageTypeSpecifier imageTypeSpecifier =

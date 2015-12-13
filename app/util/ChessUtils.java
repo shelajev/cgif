@@ -37,41 +37,39 @@ public class ChessUtils {
       }
       final int bottomPlayer = "black".equalsIgnoreCase(color) ? Chess.BLACK : Chess.WHITE;
 
-      GifWriter gw = new GifWriter(ios, moveDelayInMilliseconds, game.getWhite() + " " + game.getResult() + " " + game.getBlack());
+      try (GifWriter gw = new GifWriter(ios, moveDelayInMilliseconds, game.getWhite() + " " + game.getResult() + " " + game.getBlack())) {
+        game.gotoStart();
 
-      game.gotoStart();
-      BufferedImage[] mutableImage = new BufferedImage[] {ComponentRenderer.paintComponent(new PositionView(game.getPosition(), bottomPlayer, size))};
-      gw.addImage(mutableImage[0]);
-
-      game.traverse(new GameListener() {
-        @Override public void notifyMove(Move move, short[] shorts, String s, int plyNumber, int level) {
-          try {
-            mutableImage[0] = ComponentRenderer.paintComponent(new PositionView(game.getPosition(), bottomPlayer, size));
-            gw.addImage(mutableImage[0]);
-          }
-          catch (IOException e) {
-            Logger.error("Cannot initialize PositionView: " + e, e);
-          }
-        }
-
-        @Override public void notifyLineStart(int i) {
-        }
-
-        @Override public void notifyLineEnd(int i) {
-        }
-      }, false);
-
-      //hold last image longer, has to be a multiple of the normal delay
-      for(int i = 0; i < lastImageInMilliseconds / moveDelayInMilliseconds; i++) {
+        BufferedImage[] mutableImage = new BufferedImage[] { ComponentRenderer.paintComponent(new PositionView(game.getPosition(), bottomPlayer, size)) };
         gw.addImage(mutableImage[0]);
-      }
 
-      gw.close();
+        game.traverse(new GameListener() {
+          @Override public void notifyMove(Move move, short[] shorts, String s, int plyNumber, int level) {
+            try {
+              mutableImage[0] = ComponentRenderer.paintComponent(new PositionView(game.getPosition(), bottomPlayer, size));
+              gw.addImage(mutableImage[0]);
+            }
+            catch (IOException e) {
+              Logger.error("Cannot initialize PositionView: " + e, e);
+            }
+          }
+
+          @Override public void notifyLineStart(int i) {
+          }
+
+          @Override public void notifyLineEnd(int i) {
+          }
+        }, false);
+
+        //hold last image longer, has to be a multiple of the normal delay
+        for (int i = 0; i < lastImageInMilliseconds / moveDelayInMilliseconds; i++) {
+          gw.addImage(mutableImage[0]);
+        }
+      }
       ios.flush();
       return baos.toByteArray();
     }
     catch (Exception e) {
-      Logger.error("Got an exception while getting images of the game:" + e, e);
       throw new RuntimeException(e);
     }
     finally {

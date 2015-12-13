@@ -12,9 +12,6 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by shelajev on 17/10/15.
- */
 public class SVGUtil {
 
   private static Map<String, URI> icons = new HashMap<>();
