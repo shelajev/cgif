@@ -4,10 +4,9 @@ package util;
  * Created by shelajev on 14/10/15.
  */
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-
-import javax.swing.*;
 
 public class ComponentRenderer {
 
@@ -24,7 +23,6 @@ public class ComponentRenderer {
     return img;
   }
 
-  // from the example of user489041
   public static void layoutComponent(Component c) {
     synchronized (c.getTreeLock()) {
       c.doLayout();
