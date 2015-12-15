@@ -20,6 +20,10 @@ import java.util.concurrent.Callable;
 import static play.libs.F.Promise.promise;
 
 public class Application extends Controller {
+  
+  private static final int DEFAULT_BOARD_SIZE_PX = 320;
+  private static final int DEFAULT_MOVE_DELAY_MS = 800;
+  private static final int DEFAULT_LAST_MOVE_DELAY_MS = 800;
 
   public Result index() {
     Form form = Form.form();
@@ -73,10 +77,10 @@ public class Application extends Controller {
     String color = requestData.get("color");
 
     String sizeParam = requestData.get("size");
-    int size = sizeParam != null ? Integer.valueOf(sizeParam) : 400;
+    int size = sizeParam != null ? Integer.valueOf(sizeParam) : DEFAULT_BOARD_SIZE_PX;
 
-    int moveDelay = requestData.get("delay") == null ? 800 : (int) (Float.parseFloat(requestData.get("delay")) * 1000);
-    int lastDelay = requestData.get("lastDelay") == null ? 800 : (int) (Float.parseFloat(requestData.get("lastDelay")) * 1000);
+    int moveDelay = requestData.get("delay") == null ? DEFAULT_MOVE_DELAY_MS : (int) (Float.parseFloat(requestData.get("delay")) * 1000);
+    int lastDelay = requestData.get("lastDelay") == null ? DEFAULT_LAST_MOVE_DELAY_MS : (int) (Float.parseFloat(requestData.get("lastDelay")) * 1000);
 
     String key = Hashing.murmur3_32().hashUnencodedChars(pgn + "-" + color + "-" + size + "-" + moveDelay + "-" + lastDelay).toString();
 
