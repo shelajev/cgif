@@ -1,6 +1,7 @@
 package controllers;
 
 import com.google.common.hash.Hashing;
+import models.ChessGif;
 import play.cache.Cache;
 import play.data.DynamicForm;
 import play.data.Form;
@@ -29,13 +30,13 @@ public class API extends Controller  implements Constants{
 
     String key = Hashing.murmur3_32().hashUnencodedChars(pgn + "-" + color + "-" + size + "-" + moveDelay + "-" + lastDelay).toString();
 
-    F.Promise<byte[]> result = Cache.getOrElse(key, new Callable<F.Promise<byte[]>>() {
-      @Override public F.Promise<byte[]> call() throws Exception {
+    F.Promise<ChessGif> result = Cache.getOrElse(key, new Callable<F.Promise<ChessGif>>() {
+      @Override public F.Promise<ChessGif> call() throws Exception {
         return promise(() -> ChessUtils.gif(pgn, color, size, moveDelay, lastDelay));
       }
     }, 0);
 
-    return result.map((r) -> ok(r).as("image/gif"));
+    return result.map((r) -> ok(r.getBytes()).as("image/gif"));
   }
 
 }

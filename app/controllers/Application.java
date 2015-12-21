@@ -1,7 +1,9 @@
 package controllers;
 
+import chesspresso.Chess;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.hash.Hashing;
+import models.ChessGif;
 import play.cache.Cache;
 import play.data.DynamicForm;
 import play.data.Form;
@@ -35,20 +37,20 @@ public class Application extends Controller implements Constants {
   }
 
   public F.Promise<Result> gif(String key) {
-    F.Promise<byte[]> result = (F.Promise<byte[]>) Cache.get(key);
+    F.Promise<ChessGif> result = (F.Promise<ChessGif>) Cache.get(key);
     if (result != null) {
-      return result.map(r -> ok(r).as("image/gif"));
+      return result.map(r -> ok(r.getBytes()).as("image/gif"));
     }
 
     return promise(() -> notFound());
   }
 
   public F.Promise<Result> download(String key) {
-    F.Promise<byte[]> result = (F.Promise<byte[]>) Cache.get(key);
+    F.Promise<ChessGif> result = (F.Promise<ChessGif>) Cache.get(key);
     if (result != null) {
       response().setHeader("Content-Disposition", "attachement");
       response().setHeader("filename", "chess-gif.gif");
-      return result.map(r -> ok(r).as("image/gif"));
+      return result.map(r -> ok(r.getBytes()).as("image/gif"));
     }
 
     return promise(() -> notFound());
@@ -77,8 +79,8 @@ public class Application extends Controller implements Constants {
 
     final String key = Hashing.murmur3_32().hashUnencodedChars(pgn + "-" + color + "-" + size + "-" + moveDelay + "-" + lastDelay).toString();
 
-    F.Promise<byte[]> result = Cache.getOrElse(key, new Callable<F.Promise<byte[]>>() {
-      @Override public F.Promise<byte[]> call() throws Exception {
+    F.Promise<ChessGif> result = Cache.getOrElse(key, new Callable<F.Promise<ChessGif>>() {
+      @Override public F.Promise<ChessGif> call() throws Exception {
         return promise(() -> ChessUtils.gif(pgn, color, size, moveDelay, lastDelay));
       }
     }, 0);
