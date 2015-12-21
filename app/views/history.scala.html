@@ -1,0 +1,19 @@
+@(gifs: Collection[ChessGif])
+
+@import util.GifUtils
+
+
+@main("Recent gifs") {
+    <div class="row">
+    @for(gif <- gifs) {
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <img src="@GifUtils.getGifDataURL(gif.getBytes())"/>
+                    <div class="caption" align="center">
+                        <h3>@gif.getName()</h3>
+                    </div>
+                </div>
+            </div>
+    }
+    </div>
+}

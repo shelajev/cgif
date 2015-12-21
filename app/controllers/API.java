@@ -32,7 +32,7 @@ public class API extends Controller  implements Constants{
 
     F.Promise<ChessGif> result = Cache.getOrElse(key, new Callable<F.Promise<ChessGif>>() {
       @Override public F.Promise<ChessGif> call() throws Exception {
-        return promise(() -> ChessUtils.gif(pgn, color, size, moveDelay, lastDelay));
+        return promise(() -> ChessUtils.gif(pgn, color, size, moveDelay, lastDelay).cache());
       }
     }, 0);
 
