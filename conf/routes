@@ -13,6 +13,7 @@ GET        /gfyfy/:key          controllers.Application.gfyfy(key: String)
 GET        /result/:key         controllers.Application.result(key: String)
 POST       /result/:key         controllers.Application.result(key: String)
 POST       /pgn                 controllers.Application.pgn()
+POST       /api/pgn             controllers.API.pgn()
 
 
 GET        /about               controllers.About.about()

@@ -11,6 +11,7 @@ import play.libs.ws.WSResponse;
 import play.mvc.Controller;
 import play.mvc.Result;
 import util.ChessUtils;
+import util.Constants;
 import views.html.about;
 import views.html.index;
 import views.html.result;
@@ -19,11 +20,7 @@ import java.util.concurrent.Callable;
 
 import static play.libs.F.Promise.promise;
 
-public class Application extends Controller {
-  
-  private static final int DEFAULT_BOARD_SIZE_PX = 320;
-  private static final int DEFAULT_MOVE_DELAY_MS = 800;
-  private static final int DEFAULT_LAST_MOVE_DELAY_MS = 800;
+public class Application extends Controller implements Constants {
 
   public Result index() {
     Form form = Form.form();
@@ -78,7 +75,7 @@ public class Application extends Controller {
     int moveDelay = requestData.get("delay") == null ? DEFAULT_MOVE_DELAY_MS : (int) (Float.parseFloat(requestData.get("delay")) * 1000);
     int lastDelay = requestData.get("lastDelay") == null ? DEFAULT_LAST_MOVE_DELAY_MS : (int) (Float.parseFloat(requestData.get("lastDelay")) * 1000);
 
-    String key = Hashing.murmur3_32().hashUnencodedChars(pgn + "-" + color + "-" + size + "-" + moveDelay + "-" + lastDelay).toString();
+    final String key = Hashing.murmur3_32().hashUnencodedChars(pgn + "-" + color + "-" + size + "-" + moveDelay + "-" + lastDelay).toString();
 
     F.Promise<byte[]> result = Cache.getOrElse(key, new Callable<F.Promise<byte[]>>() {
       @Override public F.Promise<byte[]> call() throws Exception {
