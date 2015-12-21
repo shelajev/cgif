@@ -1,9 +1,26 @@
 package models;
 
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.UUID;
+
 /**
  * Created by shelajev on 21/12/15.
  */
 public class ChessGif {
+
+  public static class Cache {
+    private static final LinkedHashMap<String, ChessGif> map = new LinkedHashMap<String, ChessGif>() {
+      protected boolean removeEldestEntry(Map.Entry<String, ChessGif> eldest) {
+        return size() > 16;
+      }
+    };
+
+    public static Collection<ChessGif> get(){
+     return map.values();
+    }
+  }
 
   private String name;
   private String desc;
@@ -15,6 +32,9 @@ public class ChessGif {
   }
 
   public String getName() {
+    if("null - null".equals(name)) {
+      return "";
+    }
     return name;
   }
 
@@ -32,9 +52,13 @@ public class ChessGif {
     return this;
   }
 
-
   public byte[] getBytes() {
     return bytes;
+  }
+
+  public ChessGif cache() {
+    Cache.map.put(UUID.randomUUID().toString(), this);
+    return this;
   }
 
 }

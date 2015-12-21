@@ -1,6 +1,5 @@
 package controllers;
 
-import chesspresso.Chess;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.hash.Hashing;
 import models.ChessGif;
@@ -14,7 +13,6 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import util.ChessUtils;
 import util.Constants;
-import views.html.about;
 import views.html.index;
 import views.html.result;
 
@@ -81,7 +79,7 @@ public class Application extends Controller implements Constants {
 
     F.Promise<ChessGif> result = Cache.getOrElse(key, new Callable<F.Promise<ChessGif>>() {
       @Override public F.Promise<ChessGif> call() throws Exception {
-        return promise(() -> ChessUtils.gif(pgn, color, size, moveDelay, lastDelay));
+        return promise(() -> ChessUtils.gif(pgn, color, size, moveDelay, lastDelay).cache());
       }
     }, 0);
 
