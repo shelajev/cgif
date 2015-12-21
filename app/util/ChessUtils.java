@@ -8,6 +8,7 @@ import chesspresso.pgn.PGNReader;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.SharedMetricRegistries;
 import com.codahale.metrics.Timer;
+import models.ChessGif;
 import play.Logger;
 
 import javax.imageio.stream.ImageOutputStream;
@@ -27,7 +28,7 @@ public class ChessUtils {
   private static final MetricRegistry metricRegistry = SharedMetricRegistries.getOrCreate("play-metrics");
   private static final Timer requestTimer = metricRegistry.timer(name("gifsTimer"));
 
-  public static byte[] gif(String pgn, String color, int size, int moveDelayInMilliseconds, int lastImageInMilliseconds) {
+  public static ChessGif gif(String pgn, String color, int size, int moveDelayInMilliseconds, int lastImageInMilliseconds) {
     final Timer.Context time = requestTimer.time();
     try (ByteArrayOutputStream baos = new ByteArrayOutputStream(); ImageOutputStream ios = new MemoryCacheImageOutputStream(baos)) {
       pgn = pgn.replaceAll("\\{[^\\}]*\\}", "");
@@ -67,7 +68,10 @@ public class ChessUtils {
         }
       }
       ios.flush();
-      return baos.toByteArray();
+      ChessGif cgif = new ChessGif(baos.toByteArray());
+      cgif.setName(game.getWhite() + " - " + game.getBlack());
+      cgif.setDesc(game.getEvent());
+      return cgif;
     }
     catch (Exception e) {
       throw new RuntimeException(e);
