@@ -74,6 +74,7 @@ public class Application extends Controller implements Constants {
     if(size % 80 != 0) {
       size = size / 80 * 80;
     }
+    int boardSize = size;
 
     int moveDelay = requestData.get("delay") == null ? DEFAULT_MOVE_DELAY_MS : (int) (Float.parseFloat(requestData.get("delay")) * 1000);
     int lastDelay = requestData.get("lastDelay") == null ? DEFAULT_LAST_MOVE_DELAY_MS : (int) (Float.parseFloat(requestData.get("lastDelay")) * 1000);
@@ -82,7 +83,7 @@ public class Application extends Controller implements Constants {
 
     F.Promise<ChessGif> result = Cache.getOrElse(key, new Callable<F.Promise<ChessGif>>() {
       @Override public F.Promise<ChessGif> call() throws Exception {
-        return promise(() -> ChessUtils.gif(pgn, color, size, moveDelay, lastDelay).cache());
+        return promise(() -> ChessUtils.gif(pgn, color, boardSize, moveDelay, lastDelay).cache());
       }
     }, 0);
 
