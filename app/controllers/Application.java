@@ -71,6 +71,9 @@ public class Application extends Controller implements Constants {
 
     String sizeParam = requestData.get("size");
     int size = sizeParam != null ? Integer.valueOf(sizeParam) : DEFAULT_BOARD_SIZE_PX;
+    if(size % 80 != 0) {
+      size = size / 80 * 80;
+    }
 
     int moveDelay = requestData.get("delay") == null ? DEFAULT_MOVE_DELAY_MS : (int) (Float.parseFloat(requestData.get("delay")) * 1000);
     int lastDelay = requestData.get("lastDelay") == null ? DEFAULT_LAST_MOVE_DELAY_MS : (int) (Float.parseFloat(requestData.get("lastDelay")) * 1000);
