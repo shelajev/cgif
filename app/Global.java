@@ -10,14 +10,12 @@ import com.codahale.metrics.logback.InstrumentedAppender;
 import filters.MetricsFilter;
 import play.*;
 import play.api.mvc.EssentialFilter;
-import play.api.mvc.Result;
 import util.SVGUtil;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.TimeUnit;
 
 import static com.codahale.metrics.SharedMetricRegistries.getOrCreate;
-import static play.mvc.Results.internalServerError;
 
 /**
  * Created by shelajev on 20/10/15.
@@ -49,13 +47,6 @@ public class Global extends GlobalSettings {
     }
 
     super.onStop(application);
-  }
-
-  @Override
-  public Result onError(Throwable t) {
-    return internalServerError(
-      views.html.errorPage(t)
-    );
   }
 
   private void setupMetrics(Configuration configuration) {
