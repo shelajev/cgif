@@ -97,7 +97,7 @@ public class GifWriter implements AutoCloseable {
 
     IIOMetadataNode child = new IIOMetadataNode("ApplicationExtension");
 
-    child.setAttribute("applicationID", "NETSCAPE");
+    child.setAttribute("applicationID", "HelloWorld");
     child.setAttribute("authenticationCode", "2.0");
 
     int loop = loopContinuously ? 0 : 1;
